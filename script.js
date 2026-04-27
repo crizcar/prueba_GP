@@ -1,8 +1,10 @@
 // --- ARCHIVO: script.js ---
-// Motor principal del certamen. No requiere modificaciones futuras.
+// Motor con persistencia de datos (localStorage)
 
-let indicePreguntaActual = 0;
-let puntaje = 0;
+// 1. Intentar recuperar datos guardados al cargar la página
+// Si no hay nada, empezamos en 0
+let indicePreguntaActual = parseInt(localStorage.getItem('indiceGuardado')) || 0;
+let puntaje = parseInt(localStorage.getItem('puntajeGuardado')) || 0;
 
 // Enlaces con el HTML
 const preguntaTexto = document.getElementById("pregunta-texto");
@@ -14,21 +16,23 @@ const resultadoFinal = document.getElementById("resultado-final");
 const mainSection = document.querySelector("main");
 
 function cargarPregunta() {
+    // Verificar si ya terminamos según el índice guardado
+    if (indicePreguntaActual >= preguntas.length) {
+        mostrarResultados();
+        return;
+    }
+
     const preguntaActual = preguntas[indicePreguntaActual];
     
-    // 1. Actualizar textos de la cabecera
     preguntaTexto.innerText = `${indicePreguntaActual + 1}. ${preguntaActual.pregunta}`;
     progresoTexto.innerText = `Pregunta ${indicePreguntaActual + 1} de ${preguntas.length}`;
     
-    // 2. Animar barra de progreso
     const porcentajeProgreso = (indicePreguntaActual / preguntas.length) * 100;
     barraProgreso.style.width = `${porcentajeProgreso}%`;
     
-    // 3. Limpiar estado anterior
     opcionesContainer.innerHTML = "";
     btnSiguiente.style.display = "none";
 
-    // 4. Generar botones de opciones dinámicamente
     preguntaActual.opciones.forEach((opcion, index) => {
         const boton = document.createElement("button");
         boton.innerText = opcion;
@@ -42,25 +46,29 @@ function evaluarRespuesta(indiceSeleccionado, botonClickeado) {
     const preguntaActual = preguntas[indicePreguntaActual];
     const botones = opcionesContainer.querySelectorAll(".opcion");
 
-    // Congelar opciones para evitar clics múltiples
     botones.forEach(btn => btn.classList.add("deshabilitado"));
 
-    // Lógica visual de evaluación
     if (indiceSeleccionado === preguntaActual.respuestaCorrecta) {
         botonClickeado.classList.add("correcta");
         puntaje++;
+        // Guardar puntaje actualizado inmediatamente
+        localStorage.setItem('puntajeGuardado', puntaje);
     } else {
         botonClickeado.classList.add("incorrecta");
-        // Mostrar al usuario cuál era la verdadera respuesta correcta
-        botones[preguntaActual.respuestaCorrecta].classList.add("correcta");
+        // Protección contra error de índice (el bug que tenías antes)
+        if (botones[preguntaActual.respuestaCorrecta]) {
+            botones[preguntaActual.respuestaCorrecta].classList.add("correcta");
+        }
     }
 
-    // Permitir avanzar
     btnSiguiente.style.display = "block";
 }
 
 function siguientePregunta() {
     indicePreguntaActual++;
+    
+    // GUARDAR PROGRESO: Guardamos el nuevo índice en la memoria del navegador
+    localStorage.setItem('indiceGuardado', indicePreguntaActual);
     
     if (indicePreguntaActual < preguntas.length) {
         cargarPregunta();
@@ -70,23 +78,26 @@ function siguientePregunta() {
 }
 
 function mostrarResultados() {
-    // Ocultar sección de preguntas y mostrar resultados
     mainSection.style.display = "none";
     resultadoFinal.style.display = "block";
-    
-    // Llenar barra de progreso al 100%
     barraProgreso.style.width = "100%";
     progresoTexto.innerText = "¡Certamen Completado!";
 
-    // Cálculo estadístico
     const porcentaje = Math.round((puntaje / preguntas.length) * 100);
     
     resultadoFinal.innerHTML = `
         <h2>Resultados Finales</h2>
         <p style="font-size: 1.5em; margin: 20px 0;">Puntaje obtenido: <strong>${puntaje} / ${preguntas.length}</strong></p>
         <p style="margin-bottom: 25px;">Rendimiento total: <strong>${porcentaje}%</strong></p>
-        <button id="btn-siguiente" style="display:block" onclick="location.reload()">Volver a intentar</button>
+        <button id="btn-reiniciar" style="display:block; margin: 0 auto;" onclick="reiniciarTodo()">Empezar de cero</button>
     `;
+}
+
+// Función para borrar la memoria y volver a empezar
+function reiniciarTodo() {
+    localStorage.removeItem('indiceGuardado');
+    localStorage.removeItem('puntajeGuardado');
+    location.reload();
 }
 
 // Iniciar aplicación
