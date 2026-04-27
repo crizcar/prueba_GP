@@ -1,9 +1,4 @@
-// --- ARCHIVO: preguntas.js ---
-// Aquí centralizamos la información. Para las siguientes partes del certamen,
-// solo iremos agregando más objetos dentro de este arreglo principal.
-
 const preguntas = [
-    // --- PARTE 1 (Preguntas 1 a 3 del PDF) ---
     {
         pregunta: "¿Cuál de las siguientes expresiones, debiera ser el punto de partida de la gestión estratégica de RRHH?",
         opciones: [
@@ -13,7 +8,7 @@ const preguntas = [
             "Respuesta al Propósito de la empresa", 
             "Declaración de la Misión"
         ],
-        respuestaCorrecta: 4 // El índice empieza en 0. (0, 1, 2, 3, 4 = Declaración de la Misión)
+        respuestaCorrecta: 4 
     },
     {
         pregunta: "¿Cuándo se puede decir que una empresa tiene un Modelo de Gestión de RRHH?",
@@ -35,11 +30,7 @@ const preguntas = [
             "Las funciones transaccionales de RRHH, son las que están documentadas en un procedimiento"
         ],
         respuestaCorrecta: 3
-    }
-    // Las futuras preguntas irán pegadas justo aquí debajo.
-];
-// --- PARTE 2: Agregando el resto de las preguntas del certamen ---
-    ,
+    },
     {
         pregunta: "Si en la empresa existen problemas por que las decisiones que se toman en el área de RRHH dependen del criterio del funcionario o de su experiencia lo que causa problemas y decidimos comenzar a documentar todo para disponer de procedimientos y así mejorar la gestión, ¿esta sería una función?",
         opciones: [
@@ -182,7 +173,7 @@ const preguntas = [
             "acción afirmativa",
             "directrices de trabajo socialmente responsable"
         ],
-        respuestaCorrecta: 0 // Nota: Corregida según la retroalimentación del certamen
+        respuestaCorrecta: 0 
     },
     {
         pregunta: "Con respecto a la ética, muchas empresas tienen un código de ética. ¿Cuál de los siguientes es MENOS probable que se incluya en los códigos?",
@@ -261,7 +252,7 @@ const preguntas = [
             "hace casas abiertas",
             "recibe postulaciones de trabajo no solicitadas"
         ],
-        respuestaCorrecta: 3 // Nota: Corregida según la retroalimentación del certamen
+        respuestaCorrecta: 3 
     },
     {
         pregunta: "Es muy probable que las empresas utilicen reclutamiento interno con mayor frecuencia debido a que la política...",
@@ -341,7 +332,7 @@ const preguntas = [
             "prueba de conocimiento del trabajo",
             "descripción de puesto"
         ],
-        respuestaCorrecta: 3 // Nota: Corregida según la retroalimentación del certamen
+        respuestaCorrecta: 3 
     },
     {
         pregunta: "¿Cuál de los siguientes se relaciona más estrechamente con las condiciones en las que se realiza una prueba de selección?",
