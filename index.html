@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certamen 1 DOYRRHH 2021</title>
+    <style>
+        /* Diseño visual básico (CSS) */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+        #quiz-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 600px;
+        }
+        h2 { text-align: center; color: #2c3e50; }
+        .opcion {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #edf2f7;
+            border: 2px solid transparent;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: left;
+            font-size: 16px;
+            transition: 0.2s;
+        }
+        .opcion:hover { background: #e2e8f0; border-color: #cbd5e1; }
+        /* Clases dinámicas para las respuestas */
+        .correcta { background: #dcfce7 !important; border-color: #22c55e !important; color: #166534; }
+        .incorrecta { background: #fee2e2 !important; border-color: #ef4444 !important; color: #991b1b; }
+        .deshabilitado { pointer-events: none; opacity: 0.8; }
+        
+        #btn-siguiente {
+            margin-top: 20px;
+            padding: 12px 24px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            display: none; /* Oculto por defecto */
+            width: 100%;
+        }
+        #btn-siguiente:hover { background: #2563eb; }
+        #progreso { text-align: right; font-size: 14px; color: #64748b; }
+    </style>
+</head>
+<body>
+
+<div id="quiz-container">
+    <h2>Certamen 1 DOYRRHH</h2>
+    <p id="progreso"></p>
+    <h3 id="pregunta-texto">Cargando pregunta...</h3>
+    <div id="opciones-container">
+        </div>
+    <button id="btn-siguiente" onclick="siguientePregunta()">Siguiente Pregunta</button>
+    <h3 id="resultado-final" style="display:none; text-align:center;"></h3>
+</div>
+
+<script>
+    // 1. Estructura de Datos: Un arreglo de objetos con las preguntas.
+    // Para agregar las 39 restantes, solo debes seguir este mismo formato.
+    const preguntas = [
+        {
+            pregunta: "¿Cuál de las siguientes expresiones, debiera ser el punto de partida de la gestión estratégica de RRHH?",
+            opciones: [
+                "Búsqueda de la Cultura", 
+                "Definición de la Estrategia", 
+                "Definición de la Visión", 
+                "Respuesta al Propósito de la empresa", 
+                "Declaración de la Misión"
+            ],
+            respuestaCorrecta: 4 // El índice empieza en 0. La opción 4 es "Declaración de la Misión".
+        },
+        {
+            pregunta: "¿Cuándo se puede decir que una empresa tiene un Modelo de Gestión de RRHH?",
+            opciones: [
+                "Cuando cada uno de sus procesos se realiza con excelencia y con los mejores resultados.",
+                "Cuando realiza los procesos de RRHH asociados al trabajador.",
+                "Cuando define en un esquema conceptual, cuál será la estrategia de RRHH para estrategia del negocio.",
+                "Cuando tiene todo documentado en procedimientos que definen el que hacer",
+                "Cuando define una estrategia para alcanzar los mejores resultados de las personas."
+            ],
+            respuestaCorrecta: 4
+        },
+        {
+            pregunta: "Según lo revisado en Clases, cual aseveración NO es correcta.",
+            opciones: [
+                "Las funciones Operativas, son aquellas que no se pueden dejar de realizar",
+                "Las funciones tácticas, están de apoyo a las operativas y pensadas en mediano plazo",
+                "Las funciones estratégicas, son las que hacen crecer al negocio.",
+                "Las funciones transaccionales de RRHH, son las que están documentadas en un procedimiento"
+            ],
+            respuestaCorrecta: 3
+        }
+    ];
+
+    // Variables de estado para llevar el control del certamen
+    let indicePreguntaActual = 0;
+    let puntaje = 0;
+
+    // Referencias a los elementos del DOM (HTML)
+    const preguntaTexto = document.getElementById("pregunta-texto");
+    const opcionesContainer = document.getElementById("opciones-container");
+    const btnSiguiente = document.getElementById("btn-siguiente");
+    const progresoTexto = document.getElementById("progreso");
+    const resultadoFinal = document.getElementById("resultado-final");
+
+    // Función para renderizar la pregunta actual
+    function cargarPregunta() {
+        const preguntaActual = preguntas[indicePreguntaActual];
+        
+        // Actualizar textos
+        preguntaTexto.innerText = `${indicePreguntaActual + 1}. ${preguntaActual.pregunta}`;
+        progresoTexto.innerText = `Pregunta ${indicePreguntaActual + 1} de ${preguntas.length}`;
+        
+        // Limpiar opciones anteriores y ocultar botón
+        opcionesContainer.innerHTML = "";
+        btnSiguiente.style.display = "none";
+
+        // Crear dinámicamente un botón por cada opción
+        preguntaActual.opciones.forEach((opcion, index) => {
+            const boton = document.createElement("button");
+            boton.innerText = opcion;
+            boton.classList.add("opcion");
+            // Al hacer clic, se ejecuta la función de evaluación
+            boton.onclick = () => evaluarRespuesta(index, boton);
+            opcionesContainer.appendChild(boton);
+        });
+    }
+
+    // Función que evalúa la opción seleccionada
+    function evaluarRespuesta(indiceSeleccionado, botonClickeado) {
+        const preguntaActual = preguntas[indicePreguntaActual];
+        const botones = opcionesContainer.querySelectorAll(".opcion");
+
+        // Deshabilitar todos los botones para que no se pueda cambiar la respuesta
+        botones.forEach(btn => btn.classList.add("deshabilitado"));
+
+        // Lógica de evaluación
+        if (indiceSeleccionado === preguntaActual.respuestaCorrecta) {
+            botonClickeado.classList.add("correcta");
+            puntaje++;
+        } else {
+            botonClickeado.classList.add("incorrecta");
+            // Resaltar también cuál era la correcta
+            botones[preguntaActual.respuestaCorrecta].classList.add("correcta");
+        }
+
+        // Mostrar el botón para avanzar
+        btnSiguiente.style.display = "block";
+    }
+
+    // Función para avanzar en el flujo del certamen
+    function siguientePregunta() {
+        indicePreguntaActual++;
+
+        if (indicePreguntaActual < preguntas.length) {
+            cargarPregunta(); // Cargar la siguiente
+        } else {
+            mostrarResultados(); // Terminar el certamen
+        }
+    }
+
+    // Función de cierre
+    function mostrarResultados() {
+        preguntaTexto.style.display = "none";
+        opcionesContainer.style.display = "none";
+        btnSiguiente.style.display = "none";
+        progresoTexto.style.display = "none";
+
+        resultadoFinal.style.display = "block";
+        
+        // Calcular porcentaje teórico
+        const porcentaje = Math.round((puntaje / preguntas.length) * 100);
+        resultadoFinal.innerHTML = `¡Certamen finalizado!<br><br>Tu puntaje: ${puntaje} / ${preguntas.length}<br>Rendimiento: ${porcentaje}%`;
+    }
+
+    // Iniciar la aplicación cargando la primera pregunta
+    cargarPregunta();
+
+</script>
+</body>
+</html>
