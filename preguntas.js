@@ -29,7 +29,7 @@ const preguntas = [
             "Las funciones estratégicas, son las que hacen crecer al negocio.",
             "Las funciones transaccionales de RRHH, son las que están documentadas en un procedimiento"
         ],
-        respuestaCorrecta: 1 
+        respuestaCorrecta: 4 
     },
     {
         pregunta: "Si en la empresa existen problemas por que las decisiones que se toman en el área de RRHH dependen del criterio del funcionario o de su experiencia lo que causa problemas y decidimos comenzar a documentar todo para disponer de procedimientos y así mejorar la gestión, ¿esta sería una función?",
