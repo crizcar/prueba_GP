@@ -6,7 +6,7 @@ const preguntas = [
             "Definición de la Estrategia", 
             "Definición de la Visión", 
             "Respuesta al Propósito de la empresa", 
-            "Declaración de la Misión"
+            "Declaración de la Misión" // Opción 4 - Basado en el modelo de planeación estratégica.
         ],
         respuestaCorrecta: 4 
     },
@@ -15,21 +15,21 @@ const preguntas = [
         opciones: [
             "Cuando cada uno de sus procesos se realiza con excelencia y con los mejores resultados.",
             "Cuando realiza los procesos de RRHH asociados al trabajador.",
-            "Cuando define en un esquema conceptual, cuál será la estrategia de RRHH para estrategia del negocio.",
+            "Cuando define en un esquema conceptual, cuál será la estrategia de RRHH para estrategia del negocio.", // Opción 2 - "Sobre la base de algún concepto" (C1 2021).
             "Cuando tiene todo documentado en procedimientos que definen el que hacer",
             "Cuando define una estrategia para alcanzar los mejores resultados de las personas."
         ],
-        respuestaCorrecta: 4
+        respuestaCorrecta: 2
     },
     {
         pregunta: "Según lo revisado en Clases, cual aseveración NO es correcta.",
         opciones: [
             "Las funciones Operativas, son aquellas que no se pueden dejar de realizar",
-            "Las funciones tácticas, están de apoyo a las operativas y pensadas en mediano plazo",
+            "Las funciones tácticas, están de apoyo a las operativas y pensadas en mediano plazo", // Opción 1 - Aseveración FALSA. Las tácticas traducen la estrategia, no apoyan a la operación.
             "Las funciones estratégicas, son las que hacen crecer al negocio.",
             "Las funciones transaccionales de RRHH, son las que están documentadas en un procedimiento"
         ],
-        respuestaCorrecta: 3
+        respuestaCorrecta: 1 
     },
     {
         pregunta: "Si en la empresa existen problemas por que las decisiones que se toman en el área de RRHH dependen del criterio del funcionario o de su experiencia lo que causa problemas y decidimos comenzar a documentar todo para disponer de procedimientos y así mejorar la gestión, ¿esta sería una función?",
@@ -99,7 +99,7 @@ const preguntas = [
             "Pre y post natal para cuidar al hijo o hija",
             "Prohibición de hacer horas extra y turno de noche.",
             "Fuero maternal durante el embarazo y hasta 1 año después del postnatal",
-            "Tiempo para el amamantamiento hasta los 3 años",
+            "Tiempo para el amamantamiento hasta los 3 años", // FALSA. En Chile es hasta los 2 años.
             "Licencia médica por enfermedad del hijo o hija"
         ],
         respuestaCorrecta: 3
@@ -120,7 +120,7 @@ const preguntas = [
         opciones: [
             "La ley de inmigración que permite y protege a la fuerza laboral migrante",
             "La ley Zamudio, que sanciona y castiga todo tipo de discriminación",
-            "La ley de derechos humanos, que protege a todos los trabajadores",
+            "La ley de derechos humanos, que protege a todos los trabajadores", // No existe como ley laboral específica
             "Los Derechos fundamentales, consagrados en la constitución en protección a las personas.",
             "La ley de Inclusión labora, que obliga a contratar el 1% de personas discapacitadas"
         ],
@@ -131,7 +131,7 @@ const preguntas = [
         opciones: [
             "accionistas",
             "clientes",
-            "misión",
+            "misión", // Factor interno
             "competencia"
         ],
         respuestaCorrecta: 2
@@ -151,7 +151,7 @@ const preguntas = [
             "Los accionistas influyen en las decisiones gerenciales en una corporación.",
             "Los sindicatos negocian con la gerencia en nombre de los empleados individuales.",
             "La satisfacción del cliente juega un papel en las decisiones de recursos humanos.",
-            "El mercado laboral rara vez cambia porque la población permanece relativamente estable."
+            "El mercado laboral rara vez cambia porque la población permanece relativamente estable." // Falso, el mercado cambia constantemente.
         ],
         respuestaCorrecta: 3
     },
@@ -268,7 +268,7 @@ const preguntas = [
         pregunta: "¿Cuál de los siguientes es el beneficio MENOS probable de usar referencias de empleados para identificar candidatos para el trabajo?",
         opciones: [
             "menor rotación de empleados",
-            "mejor oportunidad de diversidad",
+            "mejor oportunidad de diversidad", // Las referencias tienden a traer perfiles idénticos a los actuales.
             "menores costos de reclutamiento",
             "mejor oportunidad de ajuste organizacional"
         ],
@@ -280,7 +280,7 @@ const preguntas = [
             "entrevista de panel",
             "entrevista grupal",
             "entrevista de estrés",
-            "entrevista conductual"
+            "entrevista conductual" // Evaluaciones por incidentes/competencias previas.
         ],
         respuestaCorrecta: 3
     },
@@ -318,7 +318,7 @@ const preguntas = [
         pregunta: "Carlos, un gerente de recursos humanos, ha revisado las solicitudes y hojas de vida de cinco candidatos para un puesto de analista de datos en su empresa. ¿Cuál de los siguientes es el próximo paso más probable que dará Carlos en el proceso de selección?",
         opciones: [
             "verificar las referencias de los solicitantes",
-            "tomar pruebas de selección a los candidatos",
+            "tomar pruebas de selección a los candidatos", // Inmediato paso posterior a la criba curricular.
             "que los solicitantes tomen exámenes físicos",
             "entrevistar a solicitantes para informar especificaciones del contrato"
         ],
