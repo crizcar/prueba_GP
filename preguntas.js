@@ -39,7 +39,7 @@ const preguntas = [
             "Táctica",
             "Operativa"
         ],
-        respuestaCorrecta: 1 
+        respuestaCorrecta: 3 
     },
     {
         pregunta: "En relación a los Puestos de trabajo, cual NO es un argumento para realizar un análisis de los puestos de trabajo de la empresa:",
